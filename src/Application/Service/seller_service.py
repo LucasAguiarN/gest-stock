@@ -10,5 +10,6 @@ class SellerService:
         db.session.commit()       
         return SellerDomain(seller.id, seller.name, seller.cnpj, seller.email, seller.password, seller.cellphone)
 
+    @staticmethod
     def active_seller():
-        return
+        pass
