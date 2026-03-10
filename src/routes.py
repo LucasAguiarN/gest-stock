@@ -1,4 +1,5 @@
 from src.Application.Controllers.user_controller import UserController
+from src.Application.Controllers.seller_controller import SellerController
 from flask import jsonify, make_response
 
 def init_routes(app):    
@@ -12,5 +13,6 @@ def init_routes(app):
     def register_user():
         return UserController.register_user()
     
-    
-
+    @app.route('/sellers', methods=['POST'])
+    def register_seller():
+        return SellerController.register_seller()
