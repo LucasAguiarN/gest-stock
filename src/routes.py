@@ -16,3 +16,8 @@ def init_routes(app):
     @app.route('/api/sellers', methods=['POST'])
     def register_seller():
         return SellerController.register_seller()
+
+    # LOGIN DO SELLER (AUTENTICAÇÃO JWT)
+    @app.route('/api/sellers/login', methods=['POST'])
+    def login_seller():
+        return SellerController.login_seller()
