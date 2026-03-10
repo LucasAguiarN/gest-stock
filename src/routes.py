@@ -13,6 +13,6 @@ def init_routes(app):
     def register_user():
         return UserController.register_user()
     
-    @app.route('/sellers', methods=['POST'])
+    @app.route('/api/sellers', methods=['POST'])
     def register_seller():
         return SellerController.register_seller()

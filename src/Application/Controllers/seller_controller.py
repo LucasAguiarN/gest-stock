@@ -5,10 +5,10 @@ class SellerController:
     @staticmethod
     def register_seller():
         data = request.get_json()
-        name = data.get('name')
+        name = data.get('nome')
         cnpj = data.get('cnpj')
         email = data.get('email')
-        password = data.get('password')
+        password = data.get('senha')
         cellphone = data.get('celular')
 
         if not name or not cnpj or not email or not password or not cellphone:
