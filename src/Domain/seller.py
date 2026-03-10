@@ -6,12 +6,6 @@ class SellerDomain():
         self.email = email
         self.password = password
         self.cellphone = cellphone
-        self.status = False
-    
-    def ativar(self):
-        # Ativação via Twilio
-        self.status = True
-        return
 
     def to_dict(self):
         return {
@@ -20,6 +14,5 @@ class SellerDomain():
             "cnpj": self.cnpj,
             "email": self.email,
             "password": self.password,
-            "cellphone": self.cellphone,
-            "status": self.status
+            "cellphone": self.cellphone
         }
