@@ -7,6 +7,8 @@ class Seller(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     cellphone = db.Column(db.String(100), unique=True, nullable=False)
+    status = db.Column(db.String(20), default='inativo', nullable=False)
+    activation_code = db.Column(db.String(10), nullable=True)
 
     def to_dict(self):
         return {
@@ -15,5 +17,6 @@ class Seller(db.Model):
             "cnpj": self.cnpj,
             "email": self.email,
             "password": self.password,
-            "cellphone": self.cellphone
+            "cellphone": self.cellphone,
+            "status": self.status
         }

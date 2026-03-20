@@ -1,3 +1,5 @@
+from src.Infrastructure.http.whats_app import WhatsAppService
+import random
 from src.Domain.seller import SellerDomain
 from src.Infrastructure.Model.seller import Seller
 from src.config.data_base import db
@@ -7,12 +9,28 @@ class SellerService:
 
     @staticmethod
     def create_seller(name, cnpj, email, password, cellphone):
-        seller = Seller(name=name, cnpj=cnpj, email=email, password=password, cellphone=cellphone)
+
+        #criptogradar senha    
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+        #gerar código de ativação
+        activation_code = str(random.randint(1000,9999))
+
+        seller = Seller(name=name, cnpj=cnpj, email=email, password=hashed_password.decode('utf-8'), cellphone=cellphone, status='inativo', activation_code=activation_code)
 
         db.session.add(seller)
         db.session.commit()
 
-        return SellerDomain(seller.id, seller.name, seller.cnpj, seller.email, seller.password, seller.cellphone)
+        try:
+            whatsapp = WhatsAppService()
+            mensagem = f"Seu código de ativação é: {activation_code}"
+            whatsapp.send_message(cellphone, mensagem)
+        
+        except Exception as e:
+            print("Erro ao enviar WhatsApp:", e)
+
+
+        return SellerDomain(seller.id, seller.name, seller.cnpj, seller.email, seller.password, seller.cellphone, seller.status)
 
 
     @staticmethod
