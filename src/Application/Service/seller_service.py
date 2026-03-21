@@ -44,9 +44,55 @@ class SellerService:
         if not bcrypt.checkpw(password.encode('utf-8'), seller.password.encode('utf-8')):
             return None
 
+        if seller.status != 'ativo':
+            return 'inativo'
+
         return seller
 
 
     @staticmethod
-    def active_seller():
-        pass
+    def active_seller(cellphone, code):
+        seller = Seller.query.filter_by(cellphone=cellphone).first()
+
+        if not seller:
+            print(f"Erro: Seller com celular {cellphone} não encontrado.")
+            return None
+        if str(seller.activation_code) == str(code):
+            seller.status = 'ativo'
+            seller.activation_code = None            
+            db.session.commit()    
+
+            return SellerDomain(
+                id=seller.id,
+                name=seller.name,
+                cnpj=seller.cnpj,
+                email=seller.email,
+                password=seller.password,
+                cellphone=seller.cellphone,
+                status=seller.status   
+            )
+
+        print(f"Erro: Código {code} não confere com o salvo ({seller.activation_code})")
+        return None
+
+    @staticmethod
+    def update_seller(seller_id, data):
+        seller = Seller.query.get(seller_id)
+
+        if not seller:
+            return None
+
+        seller.name = data.get('nome', seller.name)
+        seller.email = data.get('email', seller.email)
+        seller.cellphone = data.get('celular', seller.cellphone)
+        db.session.commit()
+
+        return SellerDomain(
+            seller.id, 
+            seller.name, 
+            seller.cnpj, 
+            seller.email, 
+            seller.password, 
+            seller.cellphone, 
+            seller.status
+        )

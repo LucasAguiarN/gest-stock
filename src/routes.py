@@ -21,3 +21,11 @@ def init_routes(app):
     @app.route('/api/sellers/login', methods=['POST'])
     def login_seller():
         return SellerController.login_seller()
+
+    @app.route('/api/sellers/activate', methods=['POST'])
+    def activate_seller():
+        return SellerController.activate_seller()
+
+    @app.route('/api/sellers/me', methods=['PUT'])
+    def update_seller():
+        return SellerController.update_seller()
