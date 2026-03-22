@@ -14,7 +14,6 @@ class SellerDomain():
             "name": self.name,
             "cnpj": self.cnpj,
             "email": self.email,
-            "password": self.password,
             "cellphone": self.cellphone,
             "status": self.status
         }

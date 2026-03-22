@@ -52,7 +52,7 @@ class SellerService:
 
     @staticmethod
     def active_seller(cellphone, code):
-        seller = Seller.query.filter_by(cellphone=cellphone).first()
+        seller = Seller.query.filter_by(cellphone=cellphone, status="inativo").order_by(Seller.id.desc()).first()
 
         if not seller:
             print(f"Erro: Seller com celular {cellphone} não encontrado.")

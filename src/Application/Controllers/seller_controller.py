@@ -53,7 +53,7 @@ class SellerController:
         if not seller:
             return make_response(jsonify({"erro": "Email ou senha inválidos"}), 401)
 
-        if seller.status == "inativo":
+        if seller == "inativo":
             return make_response(jsonify({"erro": "Seller ainda não ativado"}), 403)
 
         token = create_access_token(identity=seller.id)

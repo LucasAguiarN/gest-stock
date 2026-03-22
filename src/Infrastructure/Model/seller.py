@@ -6,7 +6,7 @@ class Seller(db.Model):
     cnpj = db.Column(db.String(14), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    cellphone = db.Column(db.String(100), unique=True, nullable=False)
+    cellphone = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(20), default='inativo', nullable=False)
     activation_code = db.Column(db.String(10), nullable=True)
 
@@ -16,7 +16,6 @@ class Seller(db.Model):
             "name": self.name,
             "cnpj": self.cnpj,
             "email": self.email,
-            "password": self.password,
             "cellphone": self.cellphone,
             "status": self.status
         }
